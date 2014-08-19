@@ -1,18 +1,18 @@
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     class MoneiGateway < Gateway
-      self.test_url = 'https://example.com/test'
-      self.live_url = 'https://example.com/live'
+      self.test_url = 'https://monei.test.ctpe.info/'
+      self.live_url = 'https://monei.test.ctpe.info/'
 
       self.supported_countries = ['US']
       self.default_currency = 'USD'
       self.supported_cardtypes = [:visa, :master, :american_express, :discover]
 
-      self.homepage_url = 'http://www.example.net/'
-      self.display_name = 'New Gateway'
+      self.homepage_url = 'http://microapps.com'
+      self.display_name = 'Monei'
 
       def initialize(options={})
-        requires!(options, :some_credential, :another_credential)
+        requires!(options, :user_login, :user_password)
         super
       end
 
@@ -72,7 +72,9 @@ module ActiveMerchant #:nodoc:
       end
 
       def parse(body)
-        {}
+        response = Monei::Transaction::Response.new(body)
+
+
       end
 
       def commit(action, parameters)
